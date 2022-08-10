@@ -1,5 +1,5 @@
 baseurl: "/blog" # the subpath of your site, e.g. /blog
-url: "https://mskim17.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://msklog.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 
 # Build settings
