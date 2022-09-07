@@ -9,12 +9,6 @@ Strapi Setting
 
 ## 1. 버전 정보(Version Information)
 
-* OS : Ubuntu 20.04LTS
-* Node : 14.19.2
-* Mysql : 8.0.30
-
-### 2. Strapi 설치 (Strapi Install)
-
 {% highlight markdown %}
 PREREQUISITES
 
@@ -25,6 +19,11 @@ npm (opens new window)(v6 only) or yarn (opens new window)to run the CLI install
 Python (opens new window)when using a SQLite database
 {% endhighlight %}
 
+* OS : Ubuntu 20.04LTS
+* Node : 14.19.2
+* Mysql : 8.0.30
+
+### 2. Strapi 설치 (Strapi Install)
 
 {% highlight js %}
   npx create-strapi-app@latest my-project
