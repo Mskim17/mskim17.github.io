@@ -1,19 +1,19 @@
 [
   
     {
+      "title"    : "Strapi Setting",
+      "category" : "",
+      "tags"     : "Resources",
+      "url"      : "/2022/09/06/Strapi-setting/",
+      "date"     : "6 Sep, 2022"
+    } ,
+  
+    {
       "title"    : "주차 위치유도 장치기들 통합 관리서버 아이템",
       "category" : "",
       "tags"     : "Resources",
       "url"      : "/2022/05/30/Integrated-monitoring/",
       "date"     : "30 May, 2022"
-    } ,
-  
-    {
-      "title"    : "주차유도 셋팅 메뉴얼 v1.2",
-      "category" : "",
-      "tags"     : "Resources",
-      "url"      : "/2022/04/19/ctaipscgf/",
-      "date"     : "19 Apr, 2022"
     } 
   
 ]

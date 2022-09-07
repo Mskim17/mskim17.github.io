@@ -1,4 +1,4 @@
-ChamsuleTech Blog
+MSK Blog
 ======
 Jekyll을 이용한 블로그
 

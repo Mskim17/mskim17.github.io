@@ -1,17 +1,17 @@
 #-------------------------------
 # General Site Settings
-title: Chamsule
-logo: chamsule.png # You can add own logo.
+title: RiceTea
+logo:  # You can add own logo.
 description: by msk
 
 
 #-------------------------------
 # Author Settings
 author:
-  name: Chamsule
+  name: MSK
   image: 01.jpg
-  say-hello: Welcome to <strong>Chamsule Tech</strong>
-  bio: 참슬테크 기술 블로그
+  say-hello: Welcome to <strong>RiceTea</strong>
+  bio: MSK 기술 블로그
 
 
 #-------------------------------
@@ -31,7 +31,7 @@ disqus-identifier: mr-brown # add your shortname for Disqus Comment. For example
 #-------------------------------
 # Instagram Feed
 instafeed: # To enable the instafeed, use the value true. To turn off use the value false.
-instagram-profile: chamsule # Add instagram username
+instagram-profile: msk # Add instagram username
 
 
 #-------------------------------
