@@ -1,0 +1,183 @@
+I"p<p>참슬테크에서 개발된 HW, SW에 대한 아이템들 입니다.</p>
+
+<hr />
+
+<h2 id="12면-주차유도">12면 주차유도</h2>
+
+<h3 id="hw">HW</h3>
+
+<ul>
+  <li>12면 카메라</li>
+  <li>PCM</li>
+  <li>L2</li>
+  <li>입구 전광판</li>
+  <li>층별 안내판</li>
+  <li>NVR</li>
+</ul>
+
+<h3 id="sw">SW</h3>
+
+<h4 id="윈도우">윈도우</h4>
+
+<ul>
+  <li>객체인식기</li>
+  <li>CMS ManageAI(Main)</li>
+  <li>관리서버(Mapviewer)</li>
+  <li>홈넷연동</li>
+</ul>
+
+<hr />
+
+<h2 id="6면-카메라">6면 카메라</h2>
+
+<h3 id="hw-1">HW</h3>
+
+<ul>
+  <li>6면 카메라</li>
+  <li>POE</li>
+  <li>L2</li>
+  <li>L3</li>
+  <li>NVR</li>
+</ul>
+
+<h3 id="sw-1">SW</h3>
+
+<h4 id="윈도우-1">윈도우</h4>
+
+<ul>
+  <li>객체인식기</li>
+  <li>CPLSManageAI(Main)</li>
+  <li>관리서버(Mapviewer)</li>
+  <li>기타 (주차관제연동, 홈넷연동)</li>
+</ul>
+
+<hr />
+
+<h2 id="원패스">원패스</h2>
+
+<h3 id="hw-2">HW</h3>
+
+<ul>
+  <li>키등록기</li>
+</ul>
+
+<h3 id="sw-2">SW</h3>
+
+<h4 id="윈도우-2">윈도우</h4>
+
+<ul>
+  <li>원패스서버</li>
+  <li>기타 (주차관제연동, 홈넷연동)</li>
+</ul>
+
+<h4 id="리눅스">리눅스</h4>
+
+<ul>
+  <li>Dev_Process</li>
+  <li>Main_Process</li>
+  <li>Ukrlan_Process</li>
+  <li>E/V_Process</li>
+</ul>
+
+<hr />
+
+<h2 id="유선비상벨">유선비상벨</h2>
+
+<h3 id="hw-3">HW</h3>
+
+<ul>
+  <li>비상벨</li>
+  <li>릴레이장치</li>
+  <li>ACU(PCU)</li>
+  <li>L2</li>
+</ul>
+
+<h3 id="sw-3">SW</h3>
+
+<h4 id="윈도우-3">윈도우</h4>
+
+<ul>
+  <li>CST Server</li>
+  <li>기타 (E/V연동, 홈넷연동)</li>
+  <li>CCTV연동</li>
+  <li>방송연동</li>
+</ul>
+
+<h4 id="리눅스-1">리눅스</h4>
+
+<ul>
+  <li>Dev_Process</li>
+  <li>Main_Process</li>
+  <li>H/N_Process</li>
+  <li>E/V_Process</li>
+  <li>G/W_Process</li>
+  <li>View_Process</li>
+</ul>
+
+<hr />
+
+<h2 id="무선비상벨">무선비상벨</h2>
+
+<h3 id="hw-4">HW</h3>
+
+<ul>
+  <li>무선스위치</li>
+  <li>무선중계기</li>
+  <li>ACU(PCU)</li>
+</ul>
+
+<h3 id="sw-4">SW</h3>
+
+<h4 id="윈도우-4">윈도우</h4>
+
+<ul>
+  <li>관리서버(Mapviewer)</li>
+  <li>CCTV연동</li>
+</ul>
+
+<h4 id="리눅스-2">리눅스</h4>
+
+<ul>
+  <li>ESS_Loc_Process</li>
+  <li>ESS_Main_Process</li>
+  <li>UPISInterface_Process</li>
+</ul>
+
+<hr />
+
+<h3 id="nvr">NVR</h3>
+
+<ul>
+  <li>유니뷰, 하니웰, 한화테크윈, 하이크비젼</li>
+</ul>
+
+<h3 id="홈넷">홈넷</h3>
+
+<ul>
+  <li>현대HT, 코콤, 코맥스, 아이컨트롤스, 계영정보, CVNet, 삼성SDS, 경동원, 이지빌</li>
+</ul>
+
+<h3 id="ev">E/V</h3>
+
+<ul>
+  <li>현대, 티센, OTIS, 미쯔비시, 성빈</li>
+</ul>
+
+<h3 id="주차관제">주차관제</h3>
+
+<ul>
+  <li>넥스파, 대영IOT, AJ Park, 아마노코리아, 위즈테크</li>
+</ul>
+
+<h3 id="cctv">CCTV</h3>
+
+<ul>
+  <li>하니웰, 한화테크윈, IDIS, 현대HT, 하이크비전, 넥스파, 다후아, 유니뷰</li>
+</ul>
+
+<h3 id="si">SI</h3>
+
+<ul>
+  <li>클라루스, 존슨</li>
+</ul>
+:ET
