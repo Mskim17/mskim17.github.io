@@ -1,0 +1,51 @@
+---
+layout: post
+title:  Nodejs DHT11 Sensor 연결
+date:   2022-09-01 11:50:35 +0300
+image:  dht.jpg
+tags:   Resources
+---
+> Nodejs + DHT11 Sensor 연결
+
+
+집에 온습도계가 없어서 여름에 집안 온도가 몇도인지 알수가 없었다.
+그래도 IoT를 했었는데 직장에서만 구현하고 집에서는 누워만 있는 모습에 간단하게 연결해서 만들어 보았다.
+
+{% highlight markdown %}
+var sensorLib = require('node-dht-sensor');
+{% endhighlight %}
+* node-dht-sensor 라이브러리 사용
+* Node : 10.15.3
+
+### Nodejs Code
+
+{% highlight js %}
+var sensor = {
+  initialize: function() {
+    return sensorLib.initialize(11, 4);
+  },
+  read: function() {
+    var readout = sensorLib.read();
+    console.log('Temperature: '+readout.temperature.toFixed(2)+'C, humidity: '+readout.humidity.toFixed(2)+'%');
+    setTimeout(function() {
+      sensor.read();
+    }, 10000);
+  }
+};
+ 
+if (sensor.initialize()) {
+  sensor.read();
+} else {
+  console.warn('Failed to initialize sensor');
+}
+{% endhighlight %}
+
+![]({{ site.baseurl }}/images/dht/dht11result.png)
+
+* 10초마다 센서값 취득 (간단하다)
+
+예전에 짜놓은 소스(Jquery)로 웹페이지를 만들어 브라우저로 결과물 확인
+
+![]({{ site.baseurl }}/images/dht/mskwebpage.png)
+
+외부 날씨Api 호출도 이용하여 비교해서 볼수 있도록 구성.
