@@ -2,7 +2,7 @@
 layout: post
 title:  Nodejs DHT11 Sensor 연결
 date:   2022-09-01 11:50:35 +0300
-image:  ./dht.jpg
+image:  dht.jpg
 tags:   Resources
 ---
 > Nodejs + DHT11 Sensor 연결
