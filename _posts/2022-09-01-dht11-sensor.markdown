@@ -2,7 +2,7 @@
 layout: post
 title:  Nodejs DHT11 Sensor 연결
 date:   2022-09-01 11:50:35 +0300
-image:  dht.jpg
+image:  dht.JPG
 tags:   Resources
 ---
 > Nodejs + DHT11 Sensor 연결
@@ -40,12 +40,12 @@ if (sensor.initialize()) {
 }
 {% endhighlight %}
 
-![]({{ site.url }}/images/dht/dht11result.png)
+![]({{ site.url }}/images/dht/dht11result.PNG)
 
 * 10초마다 센서값 취득 (간단하다)
 
 예전에 짜놓은 소스(Jquery)로 웹페이지를 만들어 브라우저로 결과물 확인
 
-![]({{ site.url }}/images/dht/mskwebpage.png)
+![]({{ site.url }}/images/dht/mskwebpage.PNG)
 
 외부 날씨Api 호출도 이용하여 비교해서 볼수 있도록 구성.
