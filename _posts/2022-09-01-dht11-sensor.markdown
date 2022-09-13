@@ -40,12 +40,12 @@ if (sensor.initialize()) {
 }
 {% endhighlight %}
 
-![]({{ site.baseurl }}/images/dht/dht11result.png)
+![]({{ site.url }}/images/dht/dht11result.png)
 
 * 10초마다 센서값 취득 (간단하다)
 
 예전에 짜놓은 소스(Jquery)로 웹페이지를 만들어 브라우저로 결과물 확인
 
-![]({{ site.baseurl }}/images/dht/mskwebpage.png)
+![]({{ site.url }}/images/dht/mskwebpage.png)
 
 외부 날씨Api 호출도 이용하여 비교해서 볼수 있도록 구성.
