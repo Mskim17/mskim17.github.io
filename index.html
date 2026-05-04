@@ -1,25 +1,815 @@
----
-layout: default
----
-{% include hero.html %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>김민수 | IT 포트폴리오</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --card: #15151f;
+  --border: rgba(255,255,255,0.07);
+  --text: #e8e8f0;
+  --muted: #7a7a9a;
+  --accent: #6c63ff;
+  --accent2: #00d4aa;
+  --accent3: #ff6b6b;
+  --mono: 'JetBrains Mono', monospace;
+}
 
-<div class="container">
-	<div class="row">
-		<div class="col col-12">
-			{% if site.posts.size > 0 %}
-				<h4 class="lates-title">Latest Posts</h4>
-			{% endif %}
-		</div>
-	</div>
-</div>
+*{box-sizing:border-box;margin:0;padding:0;}
 
-<div class="container">
-	<div class="row">
-	{% if site.posts.size > 0 %}
-		{% for post in paginator.posts %}
-			{% include article-content.html %}
-		{% endfor %}
-	{% endif %}
-	</div>
-</div>
-{% include pagination.html %}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans KR',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── 노이즈 오버레이 ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:999;opacity:0.4;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(10,10,15,0.8);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'DM Serif Display',serif;
+  font-size:20px;
+  letter-spacing:0.05em;
+  color:var(--text);
+}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{
+  font-size:13px;letter-spacing:0.08em;
+  color:var(--muted);text-decoration:none;
+  text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--text);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:120px 40px 80px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(108,99,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(0,212,170,0.08) 0%, transparent 50%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.hero-content{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;width:100%;
+}
+.hero-tag{
+  font-family:var(--mono);
+  font-size:12px;color:var(--accent2);
+  letter-spacing:0.15em;text-transform:uppercase;
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-tag::before{
+  content:'';display:block;
+  width:32px;height:1px;background:var(--accent2);
+}
+.hero-name{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(56px, 9vw, 110px);
+  line-height:0.95;
+  letter-spacing:-0.02em;
+  margin-bottom:8px;
+}
+.hero-name .accent{
+  font-style:italic;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-title{
+  font-size:clamp(18px,2.5vw,28px);
+  color:var(--muted);
+  font-weight:300;
+  margin-bottom:32px;
+  letter-spacing:0.02em;
+}
+.hero-desc{
+  max-width:520px;
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:48px;
+}
+.hero-stats{
+  display:flex;gap:48px;margin-bottom:48px;
+  flex-wrap:wrap;
+}
+.stat{border-left:2px solid var(--accent);padding-left:16px;}
+.stat-num{
+  font-family:'DM Serif Display',serif;
+  font-size:36px;color:var(--text);
+  line-height:1;
+}
+.stat-label{font-size:12px;color:var(--muted);letter-spacing:0.05em;margin-top:4px;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.btn{
+  padding:14px 32px;
+  border-radius:2px;
+  font-size:13px;letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;
+  font-family:var(--mono);
+  transition:all 0.2s;cursor:pointer;border:none;
+}
+.btn-primary{
+  background:var(--accent);color:white;
+}
+.btn-primary:hover{background:#7c74ff;transform:translateY(-2px);}
+.btn-outline{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border);
+}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── SECTIONS ── */
+section{padding:100px 40px;}
+.container{max-width:1100px;margin:0 auto;}
+
+.section-label{
+  font-family:var(--mono);
+  font-size:11px;color:var(--accent);
+  letter-spacing:0.2em;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(32px,5vw,52px);
+  line-height:1.1;
+  margin-bottom:60px;
+}
+.section-title em{font-style:italic;color:var(--accent2);}
+
+/* ── SKILLS ── */
+.skills-section{background:var(--bg2);}
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2px;
+}
+.skill-group{
+  background:var(--card);
+  padding:32px;
+  transition:background 0.2s;
+}
+.skill-group:hover{background:#1a1a25;}
+.skill-group-icon{
+  font-size:28px;margin-bottom:16px;
+}
+.skill-group-name{
+  font-family:var(--mono);
+  font-size:11px;color:var(--accent);
+  letter-spacing:0.15em;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.skill-tag{
+  font-family:var(--mono);
+  font-size:12px;
+  padding:4px 10px;
+  background:rgba(108,99,255,0.1);
+  border:1px solid rgba(108,99,255,0.2);
+  color:var(--accent);
+  border-radius:2px;
+}
+
+/* ── PROJECTS ── */
+.projects-list{display:flex;flex-direction:column;gap:2px;}
+.project-item{
+  background:var(--card);
+  padding:40px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:32px;align-items:start;
+  transition:background 0.2s;
+  cursor:default;
+}
+.project-item:hover{background:#1a1a25;}
+.project-num{
+  font-family:'DM Serif Display',serif;
+  font-size:48px;color:var(--border);
+  line-height:1;
+  min-width:60px;
+}
+.project-content{}
+.project-period{
+  font-family:var(--mono);
+  font-size:11px;color:var(--accent2);
+  letter-spacing:0.1em;margin-bottom:8px;
+}
+.project-name{
+  font-size:20px;font-weight:500;
+  margin-bottom:12px;color:var(--text);
+}
+.project-desc{
+  font-size:14px;color:var(--muted);
+  line-height:1.8;margin-bottom:16px;
+}
+.project-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.project-tag{
+  font-family:var(--mono);
+  font-size:11px;
+  padding:3px 8px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+  color:var(--muted);
+  border-radius:2px;
+}
+.project-company{
+  font-family:var(--mono);
+  font-size:11px;color:var(--muted);
+  letter-spacing:0.05em;
+  white-space:nowrap;
+  padding-top:4px;
+}
+
+/* ── PERSONAL PROJECTS ── */
+.personal-section{background:var(--bg2);}
+.personal-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:2px;
+}
+.personal-card{
+  background:var(--card);
+  padding:40px;
+  position:relative;
+  overflow:hidden;
+  transition:background 0.2s;
+}
+.personal-card:hover{background:#1a1a25;}
+.personal-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;
+}
+.personal-card:nth-child(1)::before{background:var(--accent);}
+.personal-card:nth-child(2)::before{background:var(--accent2);}
+.personal-card:nth-child(3)::before{background:var(--accent3);}
+.personal-card-icon{font-size:32px;margin-bottom:20px;}
+.personal-card-name{
+  font-size:18px;font-weight:500;margin-bottom:12px;
+}
+.personal-card-desc{
+  font-size:14px;color:var(--muted);
+  line-height:1.8;margin-bottom:20px;
+}
+.personal-card-link{
+  font-family:var(--mono);
+  font-size:12px;color:var(--accent);
+  text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+}
+.personal-card-link:hover{color:var(--accent2);}
+
+/* ── CONTACT ── */
+.contact-section{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+}
+.contact-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+.contact-left .big-text{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(40px,6vw,72px);
+  line-height:1.05;
+  margin-bottom:24px;
+}
+.contact-left .big-text em{
+  font-style:italic;color:var(--accent);
+}
+.contact-left p{
+  font-size:15px;color:var(--muted);
+  line-height:1.8;
+}
+.contact-links{display:flex;flex-direction:column;gap:16px;}
+.contact-link{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  text-decoration:none;
+  transition:all 0.2s;
+}
+.contact-link:hover{border-color:var(--accent);background:#1a1a25;}
+.contact-link-icon{font-size:20px;}
+.contact-link-text{
+  font-size:14px;color:var(--text);
+}
+.contact-link-sub{
+  font-family:var(--mono);
+  font-size:11px;color:var(--muted);
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:32px 40px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:11px;color:var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.hero-content > *{
+  animation:fadeUp 0.8s ease forwards;
+  opacity:0;
+}
+.hero-tag{animation-delay:0.1s;}
+.hero-name{animation-delay:0.2s;}
+.hero-title{animation-delay:0.3s;}
+.hero-desc{animation-delay:0.4s;}
+.hero-stats{animation-delay:0.5s;}
+.hero-btns{animation-delay:0.6s;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  section{padding:70px 20px;}
+  .hero{padding:100px 20px 60px;}
+  .project-item{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .project-num{font-size:32px;}
+  .project-company{text-align:left;}
+  .contact-inner{grid-template-columns:1fr;gap:40px;}
+  footer{flex-direction:column;gap:8px;text-align:center;}
+}
+@media(max-width:480px){
+  .hero-stats{gap:24px;}
+  .personal-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MSKIM</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#personal">개인작업</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">IT Engineer · Full Stack Developer</div>
+    <h1 class="hero-name">김민수</h1>
+    <p class="hero-title">IoT · Web Backend · Edge Computing</p>
+    <p class="hero-desc">
+      산업용 제어시스템부터 IoT 미들웨어, 웹 백엔드까지 —
+      현장과 코드 사이에서 10년 이상 쌓아온 실전 경험을 바탕으로
+      사회적 가치를 만드는 개발자입니다.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Major Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Tech Stacks</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+      <a href="#contact" class="btn btn-outline">연락하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="section-label">// 01. Skills</div>
+    <h2 class="section-title">기술 <em>스택</em></h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-icon">🖥️</div>
+        <div class="skill-group-name">Operating System</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Windows Server</span>
+          <span class="skill-tag">Linux Debian</span>
+          <span class="skill-tag">Ubuntu</span>
+          <span class="skill-tag">Windows 10</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-icon">🗄️</div>
+        <div class="skill-group-name">Database</div>
+        <div class="skill-tags">
+          <span class="skill-tag">MS-SQL</span>
+          <span class="skill-tag">Oracle</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MariaDB</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-icon">💻</div>
+        <div class="skill-group-name">Language</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">C# / WPF</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Vue</span>
+          <span class="skill-tag">VB6.0</span>
+          <span class="skill-tag">Java</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-icon">⚙️</div>
+        <div class="skill-group-name">Specialty</div>
+        <div class="skill-tags">
+          <span class="skill-tag">SCADA</span>
+          <span class="skill-tag">IoT Middleware</span>
+          <span class="skill-tag">Edge Computing</span>
+          <span class="skill-tag">Azure</span>
+          <span class="skill-tag">Socket 통신</span>
+          <span class="skill-tag">REST API</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">// 02. Experience</div>
+    <h2 class="section-title">주요 <em>프로젝트</em></h2>
+    <div class="projects-list">
+
+      <div class="project-item">
+        <div class="project-num">01</div>
+        <div class="project-content">
+          <div class="project-period">2011.07 — 2014.12</div>
+          <div class="project-name">4대강 SCADA System 구축</div>
+          <div class="project-desc">
+            강정고령보, 상주보, 공주보, 백제보 등 16개보 중 4개보 담당.
+            iFix 개발 프로그램으로 SCADA System 구축.
+            수자원공사 의뢰로 대규모 산업용 제어시스템 개발.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">VBScript</span>
+            <span class="project-tag">Oracle</span>
+            <span class="project-tag">Windows Server 2008</span>
+            <span class="project-tag">iFix</span>
+            <span class="project-tag">HP Server</span>
+          </div>
+        </div>
+        <div class="project-company">㈜사이버네이션<br>수자원공사</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">02</div>
+        <div class="project-content">
+          <div class="project-period">2012.01 — 2013.12</div>
+          <div class="project-name">한국내화㈜ 공장자동화</div>
+          <div class="project-desc">
+            ERP Server와 MES Server 연동 및 Excel Report 구축.
+            Autobase를 이용한 SCADA System 구축으로 공장 생산라인 자동화 실현.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">VBScript</span>
+            <span class="project-tag">C#</span>
+            <span class="project-tag">VB Basic</span>
+            <span class="project-tag">MS-SQL</span>
+            <span class="project-tag">Autobase</span>
+          </div>
+        </div>
+        <div class="project-company">㈜사이버네이션<br>한국내화㈜</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">03</div>
+        <div class="project-content">
+          <div class="project-period">2015.01 — 2016.10</div>
+          <div class="project-name">IoT 미들웨어 개발</div>
+          <div class="project-desc">
+            비글본 블랙 기반 Sensorcape 교육용 보드 개발.
+            온/습도 센서 및 각종 센서 연동 미들웨어 구축.
+            Azure, Thingplus 클라우드 연동 실시간 모니터링 시스템 개발.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">SQLite</span>
+            <span class="project-tag">Azure</span>
+            <span class="project-tag">Linux</span>
+          </div>
+        </div>
+        <div class="project-company">㈜뉴로메카</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">04</div>
+        <div class="project-content">
+          <div class="project-period">2017.03 — 2019.05</div>
+          <div class="project-name">아파트 원패스 시스템 (IOP)</div>
+          <div class="project-desc">
+            스마트폰을 이용한 공동현관 출입 및 비상벨 시스템, 주차위치 확인.
+            엘리베이터, 홈넷, 스마트폰 연동 서버 및 미들웨어 개발.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">WPF</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">Windows 10</span>
+          </div>
+        </div>
+        <div class="project-company">㈜투윈스컴</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">05</div>
+        <div class="project-content">
+          <div class="project-period">2019.08 — 2020.03</div>
+          <div class="project-name">WMS 유지보수 및 연동 개발</div>
+          <div class="project-desc">
+            창고관리시스템(WMS) 유지보수 및 외부 시스템 연동 개발.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">C#</span>
+            <span class="project-tag">MS-SQL</span>
+            <span class="project-tag">Windows 10</span>
+          </div>
+        </div>
+        <div class="project-company">㈜로지스밸리SLK</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">06</div>
+        <div class="project-content">
+          <div class="project-period">2020.04 — 2020.10</div>
+          <div class="project-name">양액기·관비기 스마트팜 개발</div>
+          <div class="project-desc">
+            농기기 연동 모니터링 및 제어 시스템 개발.
+            스마트폰을 이용한 실시간 모니터링 및 원격 제어 웹서버 구축.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">MariaDB</span>
+            <span class="project-tag">Windows 10</span>
+          </div>
+        </div>
+        <div class="project-company">㈜그린랩스</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">07</div>
+        <div class="project-content">
+          <div class="project-period">2021.01 — 2021.10</div>
+          <div class="project-name">방송 코더 개발 (SPOTV)</div>
+          <div class="project-desc">
+            토네이도 자막기 연동(Socket) 및 경기 데이터 방송 코더 송출 개발.
+            트랙맨(투구·타구 추적기) 실시간 데이터 Socket 연동.
+            REST API 기록 데이터를 자막기에 자동 송출하는 시스템 구축.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">C#</span>
+            <span class="project-tag">MS-SQL</span>
+            <span class="project-tag">Socket</span>
+            <span class="project-tag">REST API</span>
+          </div>
+        </div>
+        <div class="project-company">SPOTV</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">08</div>
+        <div class="project-content">
+          <div class="project-period">2022.04 — 2023.02</div>
+          <div class="project-name">장치기기 모니터링 시스템</div>
+          <div class="project-desc">
+            HeadlessCMS(Strapi) 적용 및 MySQL Stored Procedure 작성.
+            API 시스템 구축 및 Vue 프론트엔드로 각 현장 장치 상태 실시간 모니터링.
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">Vue</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">Strapi</span>
+            <span class="project-tag">Ubuntu</span>
+          </div>
+        </div>
+        <div class="project-company">참슬테크</div>
+      </div>
+      
+      <div class="project-item">
+        <div class="project-num">09</div>
+        <div class="project-content">
+          <div class="project-period">2023.04 — 2024.01</div>
+          <div class="project-name">맨홀모니터링 시스템</div>
+          <div class="project-desc">
+            맨홀악취저감장치 풀스택 개발
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">Vue</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">Strapi</span>
+            <span class="project-tag">Ubuntu</span>
+          </div>
+        </div>
+        <div class="project-company">CRT`</div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-num">10</div>
+        <div class="project-content">
+          <div class="project-period">2024.01 — 2024.12</div>
+          <div class="project-name">스마트주차모니터링 시스템</div>
+          <div class="project-desc">
+            아산 삼성주차타워 백엔드 개발
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">Strapi</span>
+            <span class="project-tag">Ubuntu</span>
+            <span class="project-tag">Windows</span>
+          </div>
+        </div>
+        <div class="project-company">CRT`</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL PROJECTS -->
+<section class="personal-section" id="personal">
+  <div class="container">
+    <div class="section-label">// 03. Personal Work</div>
+    <h2 class="section-title">개인 <em>프로젝트</em></h2>
+    <div class="personal-grid">
+
+      <div class="personal-card">
+        <div class="personal-card-icon">💊</div>
+        <div class="personal-card-name">약봉투 글씨 읽어드려요 (EasyYak)</div>
+        <div class="personal-card-desc">
+          어르신들이 약봉지 사진을 찍으면 어려운 의학 용어를 쉬운 말로 변환해주는 웹 서비스.
+          Google Vision API 기반 OCR + 맞춤 사전 치환 엔진.
+          라즈베리파이 홈서버에 배포 운영 중.
+        </div>
+        <div class="project-tags" style="margin-bottom:16px;">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Google Vision API</span>
+          <span class="project-tag">Raspberry Pi</span>
+          <span class="project-tag">PWA</span>
+        </div>
+        <a href="http://mskhouse.iptime.org:9918" target="_blank" class="personal-card-link">
+          🔗 서비스 바로가기 →
+        </a>
+      </div>
+
+      <div class="personal-card">
+        <div class="personal-card-icon">🌡️</div>
+        <div class="personal-card-name">홈 IoT 대시보드</div>
+        <div class="personal-card-desc">
+          라즈베리파이 기반 온습도 센서 + 외부 날씨 API 연동 대시보드.
+          주식 크롤링 데이터까지 통합한 개인 홈 모니터링 시스템.
+          엣지컴퓨팅 기반으로 서버 비용 없이 운영 중.
+        </div>
+        <div class="project-tags" style="margin-bottom:16px;">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">IoT</span>
+          <span class="project-tag">Raspberry Pi</span>
+          <span class="project-tag">크롤링</span>
+        </div>
+        <a href="http://mskhouse.iptime.org:3324" target="_blank" class="personal-card-link">
+          🔗 대시보드 바로가기 →
+        </a>
+      </div>
+
+      <div class="personal-card">
+        <div class="personal-card-icon">🔔</div>
+        <div class="personal-card-name">복약 모니터링 시스템 (개발 중)</div>
+        <div class="personal-card-desc">
+          EasyYak의 확장 기능으로, 독거노인이 복약 완료 버튼을 누르면
+          보호자에게 실시간 알림이 전송되는 시스템.
+          Firebase FCM 기반 웹 푸시 알림 개발 중.
+        </div>
+        <div class="project-tags" style="margin-bottom:16px;">
+          <span class="project-tag">Firebase FCM</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Web Push</span>
+        </div>
+        <a href="https://mskim17.github.io/" target="_blank" class="personal-card-link">
+          🔗 GitHub →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-label">// 04. Contact</div>
+        <div class="big-text">함께<br><em>만들어요</em></div>
+        <p>
+          산업 현장부터 사회적 가치까지 —<br>
+          기술로 세상을 조금 더 나은 곳으로<br>
+          만들고 싶은 분과 함께하고 싶습니다.
+        </p>
+      </div>
+      <div class="contact-right">
+        <div class="contact-links">
+          <a href="http://mskhouse.iptime.org:9918" target="_blank" class="contact-link">
+            <span class="contact-link-icon">💊</span>
+            <div>
+              <div class="contact-link-text">EasyYak 서비스</div>
+              <div class="contact-link-sub">mskhouse.iptime.org:9918</div>
+            </div>
+          </a>
+          <a href="http://mskhouse.iptime.org:3324" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🌡️</span>
+            <div>
+              <div class="contact-link-text">홈 IoT 대시보드</div>
+              <div class="contact-link-sub">mskhouse.iptime.org:3324</div>
+            </div>
+          </a>
+          <a href="https://mskim17.github.io/" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🐙</span>
+            <div>
+              <div class="contact-link-text">GitHub</div>
+              <div class="contact-link-sub">mskim17.github.io</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 김민수 · IT Engineer</span>
+</footer>
+
+</body>
+</html>
